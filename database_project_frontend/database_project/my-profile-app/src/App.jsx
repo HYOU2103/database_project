@@ -44,11 +44,13 @@ const AppLayout = () => {
   
   // Update current route when location changes
   useEffect(() => {
-    if (location.pathname !== '/login' && location.pathname !== '/signup' && location.pathname !== '/reset') {
-      setCurrentRoute(location.pathname);
-      localStorage.setItem('currentRoute', location.pathname);
-    }
-  }, [location.pathname, setCurrentRoute]);
+    // Force login for development
+    setLoggedIn(true);
+    // Set a mock token
+    localStorage.setItem('userToken', 'dev-bypass-token');
+    // Set as non-admin by default (change to 'true' if you need admin access)
+    localStorage.setItem('isAdmin', 'false');
+  }, [setLoggedIn]);
 
   // Handle initial load and route
   useEffect(() => {
